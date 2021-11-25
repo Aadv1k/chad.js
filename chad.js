@@ -1,116 +1,78 @@
-window.onload = () => {
-  // the chad way
-  app = chad("#app");
-  aloha = prompt("Sike");
-  app.append(
-    `<div id='hmm' class='foo' style='background: gray;'>${aloha}</div>`
-  );
-};
+function chad(selector) {
+  let self = document.querySelector(selector);
 
-// TODO Implement more selectors
-function chad(element) {
-  if (element[0] == "#") {
-    return document.getElementById(element.substring(1));
-  } else if (element[0] == ".") {
-    return document.getElementsByClassName(element.substring(1));
-  } else {
-    return document.getElementsByTagName(element);
-  }
-}
+  // TODO html parser
+  // DOM manipulation
+  self.append = (tag, text) => {
+    child = document.createElement(tag);
+    child.innerText = text;
+    self.appendChild(child);
+  };
 
-function parseHtmlString(htmlString) {
-  tag = htmlString.substring(
-    htmlString.indexOf("<") + 1,
-    htmlString.indexOf(" ")
-  );
-  console.log(tag);
+  self.prepend = (tag, text) => {
+    child = document.createElement(tag);
+    child.innerText = text;
+    self.insertBefore(child, self.firstChild);
+  };
 
-  dict = { atribs: [] };
-  parser = new DOMParser();
-  parsedHtml = parser
-    .parseFromString(htmlString, "text/html")
-    .getElementsByTagName(tag)[0];
+  // Class attribute manipulation
+  self.addClass = function (className) {
+    if (Array.isArray(className)) {
+      classNames = [...className];
+    } else {
+      classNames = className.split(" ");
+    }
 
-  dict["innerText"] = parsedHtml.innerText;
-  dict["tag"] = tag;
-
-  for (atrib of parsedHtml.getAttributeNames()) {
-    dict["atribs"].push({
-      item: atrib,
-      value: parsedHtml.getAttribute(atrib),
+    classNames.forEach((e) => {
+      self.classList.add(e);
     });
-  }
-  return dict;
+  };
+
+  self.removeClass = function (className) {
+    if (Array.isArray(className)) {
+      classNames = [...className];
+    } else {
+      classNames = className.split(" ");
+    }
+
+    classNames.forEach((e) => {
+      self.classList.remove(e);
+    });
+  };
+
+  self.hasClass = function (className) {
+    return self.classList.contains(className);
+  };
+
+  self.toggleClass = function (className) {
+    let classNames;
+    if (Array.isArray(className)) {
+      classNames = [...className];
+    } else {
+      classNames = className.split(" ");
+    }
+    classNames.forEach((e) => {
+      self.classList.toggle(e);
+    });
+  };
+
+  // EVENT LISTENERS
+  self.click = (func) => {
+    self.addEventListener("click", func);
+  };
+
+  self.on = (event, func) => {
+    self.addEventListener(event, func);
+  };
+
+  return self;
 }
 
-// DOM insertion
-app.append = function (string) {
-  data = parseHtmlString(string);
-  child = document.createElement(data["tag"]);
-  child.innerText = data["innerText"];
-  for (atrib of data["atribs"]) {
-    child.setAttribute(atrib["item"], atrib["value"]);
-  }
+window.onload = () => {
+  $ = chad("#app");
+  $.addClass("foo bar baz");
 
-  this.appendChild(child);
-};
-
-app.prepend = function (string) {
-  result = document.createChild("");
-
-  if (typeof string == "string") {
-    this.innerHTML = text.substring(0, 0) + string + text.substring();
-  } else {
-    this.innerHTML = text.substring(0, 0) + string.innerHTML + text.substring();
-  }
-};
-
-// Class attribute manipulation
-app.addClass = function (className) {
-  if (checkArray(className)) {
-    classNames = [...className];
-  } else {
-    classNames = className.split(" ");
-  }
-
-  classNames.forEach((e) => {
-    this.classList.add(e);
+  $.click(() => {
+    $.toggleClass("foo");
   });
 };
-
-app.removeClass = function (className) {
-  if (checkArray(className)) {
-    classNames = [...className];
-  } else {
-    classNames = className.split(" ");
-  }
-
-  classNames.forEach((e) => {
-    this.classList.remove(e);
-  });
-};
-
-app.hasClass = function (className) {
-  return this.classList.contains(className);
-};
-
-app.toggleClass = function (className) {
-  let classNames;
-  if (checkArray(className)) {
-    classNames = [...className];
-  } else {
-    classNames = className.split(" ");
-  }
-  classNames.forEach((e) => {
-    this.classList.toggle(e);
-  });
-};
-
-// DOM removal
-app.unwrap = function () {
-  return this.innerHTML;
-};
-
-function checkArray(arr) {
-  return Array.isArray(arr);
-}
