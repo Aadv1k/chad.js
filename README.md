@@ -1,7 +1,7 @@
-# Chad.js :muscle:
+# chadQuery :muscle:
 
-why another JavaScript library? well because there [aren't enough](https://github.com/collections/front-end-javascript-frameworks)<br>
-(PS - this is just a fun project for me to learn JavaScript, nothing serious :P )
+A jQuery clone, built from scratch 
+(ps - this is just a fun project, for me to learn JavaScript and DOM, nothing serious :P)
 
 ## Todo
 
