@@ -1,14 +1,12 @@
 window.onload = () => {
-  chad("#app").append("h1", "I got appended", {
-    style: "background: lightgray; font-family: monospace; font-weight: light",
-    align: "center",
-  });
+  chad("#app").append(chad("#app"));
 };
 
 let chad = (...args) => {
   if (typeof args[0] === "string") {
     collection = document.querySelectorAll(args[0]);
 
+    // TODO Implementation for Arrays
     // Add class
     collection.addClass = (classString) => {
       classes = classString.split(" ");
@@ -53,19 +51,24 @@ let chad = (...args) => {
       return bool.every((e) => e !== false);
     };
 
-    collection.append = (tag, inner, atribs) => {
-      child = document.createElement(tag);
-      child.innerText = inner;
-
-      collection.forEach((item) => {
-        for (key in atribs) {
-          item.setAttribute(key, atribs[key]);
-          item.append(child);
-        }
-      });
+    collection.append = (htmlString) => {
+      if (typeof htmlString === "string") {
+        collection.forEach((item) => {
+          item.innerHTML += htmlString;
+        });
+      } else if (htmlString instanceof NodeList) {
+        child = document.createElement(htmlString[0].tagName);
+        collection.forEach((item) => {
+          for (attrib of htmlString[0].getAttributeNames()) {
+            child.setAttribute(attrib, htmlString[0].getAttribute(attrib));
+          }
+        });
+        // self.appendChild(child);
+        // TODO implement this properly when brain is working, currently it generates empty mested tags
+        collection.forEach((item) => item.appendChild(child));
+      }
     };
 
-    // Event handler
     collection.on = (event, func) => {
       collection.forEach((item) => {
         item.addEventListener(event, func);

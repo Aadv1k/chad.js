@@ -5,7 +5,9 @@ A simple jQuery clone, built from scratch as a fun project for me to learn JavaS
 ## Todo
 
 - Manipulation
-  - [ ] Css Attributes
+
+  - [x] Class Attributes
+
   - [ ] DOM insertion (Inside, Outside, Around)
   - [ ] DOM removal
   - [ ] Dom replacement
