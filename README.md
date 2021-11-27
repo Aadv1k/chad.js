@@ -1,11 +1,13 @@
 # chadQuery :muscle:
 
-A jQuery clone, built from scratch 
-(ps - this is just a fun project, for me to learn JavaScript and DOM, nothing serious :P)
+A simple jQuery clone, built from scratch as a fun project for me to learn JavaScript and DOM
 
 ## Todo
 
-- [ ] css manipulation
-- [ ] dom manipulations
-- [ ] html manipulations
-- [ ] dom element selection
+- Manipulation
+  - [ ] Css Attributes
+  - [ ] DOM insertion (Inside, Outside, Around)
+  - [ ] DOM removal
+  - [ ] Dom replacement
+  - [ ] General attributes
+  - [ ] Style properties
