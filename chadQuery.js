@@ -1,5 +1,5 @@
 window.onload = () => {
-  chad("#app").append(chad("#app"));
+  chad("#app").append("<h1>Hello there <b>little</b> kid</h1>");
 };
 
 let chad = (...args) => {
@@ -52,22 +52,78 @@ let chad = (...args) => {
     };
 
     collection.append = (htmlString) => {
-      if (typeof htmlString === "string") {
+      collection.forEach((item) => {
+        item.innerHTML += htmlString;
+      });
+    };
+
+    collection.appendTo = (htmlString) => {
+      if (htmlString instanceof NodeList) {
         collection.forEach((item) => {
-          item.innerHTML += htmlString;
+          htmlString.forEach((target) => {
+            target.innerHTML = target.innerHTML += item.innerHTML;
+          });
         });
-      } else if (htmlString instanceof NodeList) {
-        child = document.createElement(htmlString[0].tagName);
-        collection.forEach((item) => {
-          for (attrib of htmlString[0].getAttributeNames()) {
-            child.setAttribute(attrib, htmlString[0].getAttribute(attrib));
-          }
-        });
-        // self.appendChild(child);
-        // TODO implement this properly when brain is working, currently it generates empty mested tags
-        collection.forEach((item) => item.appendChild(child));
       }
     };
+
+    collection.prepend = (htmlString) => {
+      collection.forEach((item) => {
+        item.innerHTML = htmlString + item.innerHTML.slice(0);
+      });
+    };
+
+    collection.prependTo = (htmlString) => {
+      if (htmlString instanceof NodeList) {
+        collection.forEach((item) => {
+          htmlString.forEach((target) => {
+            target.innerHTML = item.innerHTML += target.innerHTML.slice(0);
+          });
+        });
+      }
+    };
+
+		collection.html = () => {
+			result = []
+			collection.forEach((item) => {
+				result.push(item.innerHTML)
+			})
+			return result
+		}
+
+		collection.text = () => {
+			result = []
+			collection.forEach((item) => {
+				result.push(item.innerText)
+			})
+			return result
+		}
+
+    /* 
+    collection.append = (htmlString) => {
+      let atribs = htmlString.slice(
+        htmlString.indexOf("<") + 1,
+        htmlString.indexOf(">")
+      );
+
+			let innerText = htmlString.slice(
+        htmlString.indexOf(">") + 1,
+        htmlString.indexOf("</")
+      );
+			console.log(atribs, innerText)
+
+      atribList = atribs.split(" ");
+      child = document.createElement(atribList[0]);
+			child.innerText = innerText
+			for (let i=1; i < atribList.length; i++) {
+				child.setAttribute(
+					(atribList[i]).split('=')[0], 
+					((atribList[i]).split('=')[1]).replace(/"/g, "")
+				)
+			}
+			collection.forEach(item => item.appendChild(child))
+    };
+		*/
 
     collection.on = (event, func) => {
       collection.forEach((item) => {
