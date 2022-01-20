@@ -1,5 +1,7 @@
+// This was added inside foo!
+
 window.onload = () => {
-  chad("#app").append("<h1>Hello there <b>little</b> kid</h1>");
+  chad("#app").append("<h1>Welcome to the jungle 🌲.</h1>");
 };
 
 let chad = (...args) => {
@@ -9,7 +11,9 @@ let chad = (...args) => {
     // TODO Implementation for Arrays
     // Add class
     collection.addClass = (classString) => {
-      classes = classString.split(" ");
+      // a slightly better implementation
+      classes = typeof(classString) == 'string' ? classString.split(" ") : classString;
+
       collection.forEach((item) => {
         classes.forEach((cl) => {
           item.classList.add(cl);
