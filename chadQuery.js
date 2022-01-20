@@ -99,32 +99,6 @@ let chad = (...args) => {
 			return result
 		}
 
-    /* 
-    collection.append = (htmlString) => {
-      let atribs = htmlString.slice(
-        htmlString.indexOf("<") + 1,
-        htmlString.indexOf(">")
-      );
-
-			let innerText = htmlString.slice(
-        htmlString.indexOf(">") + 1,
-        htmlString.indexOf("</")
-      );
-			console.log(atribs, innerText)
-
-      atribList = atribs.split(" ");
-      child = document.createElement(atribList[0]);
-			child.innerText = innerText
-			for (let i=1; i < atribList.length; i++) {
-				child.setAttribute(
-					(atribList[i]).split('=')[0], 
-					((atribList[i]).split('=')[1]).replace(/"/g, "")
-				)
-			}
-			collection.forEach(item => item.appendChild(child))
-    };
-		*/
-
     collection.on = (event, func) => {
       collection.forEach((item) => {
         item.addEventListener(event, func);
@@ -134,3 +108,4 @@ let chad = (...args) => {
     return collection;
   }
 };
+
