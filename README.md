@@ -1,4 +1,4 @@
-# chadQuery :muscle:
+# chadQuery
 
 A simple jQuery clone, built from scratch as a fun project for me to learn JavaScript and DOM
 
